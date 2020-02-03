@@ -1,7 +1,5 @@
 <template>
-  <div>
     <Shot/>
-  </div>
 </template>
 <script>
 // @ is an alias to /src

@@ -8,20 +8,27 @@
       <div class="col-md-6">
         <router-view />
       </div>
+      <div class="col-md-3">
+        <TopShots/>
+      </div>
+      <div class="col-md-12">
+        <Footer />
+      </div>
     </div>
-    <Footer />
   </div>
 </template>
 <script>
 import Navbar from '@/components/Navbar.vue';
 import Footer from '@/components/Footer.vue';
 import TopShooters from '@/components/TopShooters.vue';
+import TopShots from '@/components/TopShots.vue';
 
 export default {
   components: {
     Navbar,
     Footer,
     TopShooters,
+    TopShots,
   },
 };
 </script>

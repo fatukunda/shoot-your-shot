@@ -12,10 +12,9 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
+        <li class="nav-item">
           <router-link to="/" class="nav-link">Home</router-link>
         </li>
         <li class="nav-item">
@@ -28,7 +27,9 @@
           <router-link to="/shooters" class="nav-link">Shooters</router-link>
         </li>
       </ul>
-      <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Shoot a shot</button>
+      <router-link to="/shots/create">
+        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Shoot a shot</button>
+      </router-link>
     </div>
   </nav>
 </template>
