@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify-content-center mt-4">
+  <div>
     <Shot/>
   </div>
 </template>

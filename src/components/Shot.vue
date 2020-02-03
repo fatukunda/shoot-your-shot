@@ -1,8 +1,8 @@
 <template>
   <div class="row">
     <div class="col-md-12">
-      <div :style="shotStyles" class="shot">
-        <p class="p-3">
+      <div :style="shotStyles" class="shot shadow-lg p-4 mb-5 rounded">
+        <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit,
           sed do eiusmod tempor incididunt ut labore et dolore magna.
         </p>
@@ -15,19 +15,19 @@
               <div class="col-md-4">
                 <span class="mr-2">20</span>
                 <span>
-                  <font-awesome-icon icon="thumbs-up" />
+                  <font-awesome-icon :icon="['fa', 'thumbs-up']" />
                 </span>
               </div>
               <div class="col-md-4">
                 <span class="mr-2">30</span>
                 <span>
-                  <font-awesome-icon icon="adjust" />
+                  <font-awesome-icon :icon="['fa', 'adjust']" />
                 </span>
               </div>
               <div class="col-md-4">
                 <span class="mr-2">10</span>
                 <span>
-                  <font-awesome-icon icon="thumbs-down" />
+                  <font-awesome-icon :icon="['fa', 'thumbs-down']" />
                 </span>
               </div>
             </div>
@@ -36,10 +36,14 @@
       </div>
       <div class="row mt-4 navigate">
         <div class="col-md-6">
-          <button class="btn btn-info">PREV</button>
+          <font-awesome-icon :icon="['fas', 'arrow-circle-left']" size="3x" />
         </div>
-        <div class="col-md-6">
-          <button class="btn btn-warning">NEXT</button>
+        <div class="col-md-6 float">
+          <font-awesome-icon
+            :icon="['fas', 'arrow-circle-right']"
+            class="float-right"
+            size="3x"
+          />
         </div>
       </div>
     </div>
@@ -61,9 +65,8 @@ export default {
   },
   computed: {
     shotStyles() {
-      const { width, height, border } = this;
+      const { height, border } = this;
       return {
-        width,
         height,
         border,
         backgroundColor: this.generateRandomColor,

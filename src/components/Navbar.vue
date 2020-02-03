@@ -8,7 +8,10 @@
           <router-link to="/" class="mr-2">Home</router-link>|
           <router-link to="/about" class="mr-2 ml-2">About</router-link>|
           <router-link to="/shots" class="mr-2 ml-2">Shots</router-link>|
-          <router-link to="/shooters" class="ml-2">Shooters</router-link>
+          <router-link to="/shooters" class="ml-2">Shooters</router-link>|
+          <router-link to="/create-shot">
+          <button class="btn btn-warning btn-sm ml-2">Shoot a Shot</button>
+          </router-link>
         </div>
       </div>
     </div>
