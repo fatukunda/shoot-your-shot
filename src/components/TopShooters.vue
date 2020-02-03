@@ -20,8 +20,10 @@
       <hr/>
       <li>@gotchYou</li>
       <hr/>
-      <li>@simeon</li>
     </ol>
+    <router-link to="/leaderboard">
+        <button class="btn btn-outline-warning float-right">View Leaderboard</button>
+    </router-link>
   </div>
 </template>
 

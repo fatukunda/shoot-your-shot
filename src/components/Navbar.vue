@@ -24,7 +24,7 @@
           <router-link to="/shots" class="nav-link">Shots</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/shooters" class="nav-link">Shooters</router-link>
+          <router-link to="/leaderboard" class="nav-link">Leaderboard</router-link>
         </li>
       </ul>
       <router-link to="/shots/create">
