@@ -1,7 +1,7 @@
 <template>
-  <div id="app" class="container-fluid">
+  <div id="app">
     <Navbar />
-    <div class="row mt-4">
+    <div class="row main">
       <div class="col-md-3">
         <TopShooters/>
       </div>
@@ -9,7 +9,6 @@
         <router-view />
       </div>
     </div>
-    <hr>
     <Footer />
   </div>
 </template>
@@ -31,5 +30,8 @@ export default {
   font-family: "EB Garamond", serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.main{
+  margin-top: 3rem;
 }
 </style>

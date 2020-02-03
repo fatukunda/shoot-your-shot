@@ -1,19 +1,34 @@
 <template>
-  <nav class="nav-bar">
-    <div class="row">
-      <div class="col-md-12 text-center">
-        <h1>Shoot Your Shot</h1>
-        <hr />
-        <div class="col-md-12">
-          <router-link to="/" class="mr-2">Home</router-link>|
-          <router-link to="/about" class="mr-2 ml-2">About</router-link>|
-          <router-link to="/shots" class="mr-2 ml-2">Shots</router-link>|
-          <router-link to="/shooters" class="ml-2">Shooters</router-link>|
-          <router-link to="/create-shot">
-          <button class="btn btn-warning btn-sm ml-2">Shoot a Shot</button>
-          </router-link>
-        </div>
-      </div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Shoot Your Shot</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <router-link to="/" class="nav-link">Home</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/about" class="nav-link">About</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/shots" class="nav-link">Shots</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/shooters" class="nav-link">Shooters</router-link>
+        </li>
+      </ul>
+      <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Shoot a shot</button>
     </div>
   </nav>
 </template>

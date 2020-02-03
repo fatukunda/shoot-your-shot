@@ -1,7 +1,7 @@
 <template>
-  <footer class="footer" font-small>
-    <div class="text-center py-5">Built by Frank @Andela</div>
-  </footer>
+    <nav class="navbar fixed-bottom navbar-dark bg-dark text-center">
+      <h6 class="text-white">Built by Frank @Andela</h6>
+    </nav>
 </template>
 
 <script>
@@ -11,9 +11,4 @@ export default {
 </script>
 
 <style scoped>
-.footer {
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-}
 </style>
