@@ -27,22 +27,35 @@
           <router-link to="/leaderboard" class="nav-link">Leaderboard</router-link>
         </li>
       </ul>
-      <router-link to="/shots/create">
+      <span class="navbar-text mr-4" v-if="isLoggedIn">{{`@${user.displayName}`}}</span>
+      <router-link to="/shots/create" v-show="isLoggedIn">
         <button class="btn btn-outline-warning btn-sm" type="submit">Shoot a shot</button>
       </router-link>
-      <router-link to="/signup">
+      <router-link to="/signin" v-show="!isLoggedIn">
+        <button class="btn btn-outline-warning btn-sm" type="submit">Login</button>
+      </router-link>
+      <router-link to="/signup" v-show="!isLoggedIn">
         <button class="btn btn-outline-success ml-2 btn-sm" type="submit">Register</button>
       </router-link>
-      <router-link to="/signout">
-        <button class="btn btn-outline-info ml-2 btn-sm" type="submit">Sign Out</button>
-      </router-link>
+      <button
+        v-show="isLoggedIn"
+        class="btn btn-outline-info ml-2 btn-sm"
+        type="submit"
+        @click="logout()"
+      >Sign Out</button>
     </div>
   </nav>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
   name: 'Navbar',
+  computed: mapGetters(['user', 'isLoggedIn']),
+  methods: {
+    ...mapActions(['logout']),
+  },
 };
 </script>
 
