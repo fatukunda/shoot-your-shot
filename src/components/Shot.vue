@@ -6,39 +6,37 @@
         sed do eiusmod tempor incididunt ut labore et dolore magna.
       </p>
       <div class="row">
-        <div class="col-md-4">
-          <h5 class="pl-3">@LionKing</h5>
+        <div class="col-md-12">
+          <h5>@LionKing</h5>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-12 mt-4">
           <div class="row">
             <div class="col-md-4">
-              <span class="mr-2">20</span>
-              <span>
-                <font-awesome-icon :icon="['fa', 'thumbs-up']" />
-              </span>
+              <button class="btn btn-success btn-sm">
+                <span class="mr-2">20</span>
+                <span>
+                  <font-awesome-icon :icon="['fa', 'thumbs-up']" />
+                </span>
+              </button>
             </div>
             <div class="col-md-4">
-              <span class="mr-2">30</span>
-              <span>
-                <font-awesome-icon :icon="['fa', 'adjust']" />
-              </span>
+              <button class="btn btn-warning btn-sm">
+                <span class="mr-2">30</span>
+                <span>
+                  <font-awesome-icon :icon="['fa', 'adjust']" />
+                </span>
+              </button>
             </div>
             <div class="col-md-4">
-              <span class="mr-2">10</span>
-              <span>
-                <font-awesome-icon :icon="['fa', 'thumbs-down']" />
-              </span>
+              <button class="btn btn-danger btn-sm">
+                <span class="mr-2">10</span>
+                <span>
+                  <font-awesome-icon :icon="['fa', 'thumbs-down']" />
+                </span>
+              </button>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="row mt-4 navigate">
-      <div class="col-md-6 text-center">
-        <font-awesome-icon :icon="['fas', 'arrow-circle-left']" size="3x" class="icon" />
-      </div>
-      <div class="col-md-6 text-center">
-        <font-awesome-icon :icon="['fas', 'arrow-circle-right']" size="3x" class="icon" />
       </div>
     </div>
   </div>
@@ -48,8 +46,7 @@
 export default {
   name: 'Shot',
   data: () => ({
-    width: '30rem',
-    height: '25rem',
+    height: '20rem',
     border: '1px solid #c9753d',
   }),
   methods: {
@@ -82,10 +79,7 @@ export default {
 
 <style scoped>
 .shot {
-  font-size: 20px;
+  font-size: 18px;
   line-height: 2rem;
-}
-.icon{
-    cursor: pointer;
 }
 </style>

@@ -1,14 +1,14 @@
 <template>
-    <Shot/>
+    <Shots/>
 </template>
 <script>
 // @ is an alias to /src
-import Shot from '../components/Shot.vue';
+import Shots from '../components/Shots.vue';
 
 export default {
   name: 'home',
   components: {
-    Shot,
+    Shots,
   },
 };
 </script>

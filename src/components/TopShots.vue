@@ -54,12 +54,6 @@
           </div>
         </router-link>
       </div>
-      <div class="col-md-12">
-        <router-link to="/shots">
-          <button class="btn btn-small btn-outline-warning float-right mr-4">
-              View More Shots</button>
-        </router-link>
-      </div>
     </div>
   </div>
 </template>

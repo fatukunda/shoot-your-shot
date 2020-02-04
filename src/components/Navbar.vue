@@ -28,7 +28,13 @@
         </li>
       </ul>
       <router-link to="/shots/create">
-        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Shoot a shot</button>
+        <button class="btn btn-outline-warning btn-sm" type="submit">Shoot a shot</button>
+      </router-link>
+      <router-link to="/signup">
+        <button class="btn btn-outline-success ml-2 btn-sm" type="submit">Register</button>
+      </router-link>
+      <router-link to="/signout">
+        <button class="btn btn-outline-info ml-2 btn-sm" type="submit">Sign Out</button>
       </router-link>
     </div>
   </nav>

@@ -28,6 +28,11 @@ const routes = [
     name: 'leaderboard',
     component: () => import('../components/Leaderboard.vue'),
   },
+  {
+    path: '/shots',
+    name: 'shots',
+    component: () => import('../components/Shots.vue'),
+  },
 ];
 
 const router = new VueRouter({

@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h5 class="pb-4 pl-4 text-warning font-weight-bold">Leaderboard</h5>
+      <h4 class="display-5 pl-2">Leaderboard</h4>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -13,19 +13,19 @@
       <tbody>
         <tr>
           <th scope="row">1</th>
-          <td>Mark</td>
+          <td> <router-link to="/shooters/:id">@topdawg</router-link></td>
           <td>5</td>
           <td>100</td>
         </tr>
         <tr>
           <th scope="row">2</th>
-          <td>Jacob</td>
+          <td> <router-link to="/shooters/:id">@jacob</router-link></td>
           <td>8</td>
           <td>64</td>
         </tr>
         <tr>
           <th scope="row">3</th>
-          <td>Larry</td>
+          <td> <router-link to="/shooters/:id">@larry</router-link></td>
           <td>7</td>
           <td>32</td>
         </tr>
