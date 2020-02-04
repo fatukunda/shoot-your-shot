@@ -33,6 +33,16 @@ const routes = [
     name: 'shots',
     component: () => import('../components/Shots.vue'),
   },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: () => import('../components/SignUp.vue'),
+  },
+  {
+    path: '/signin',
+    name: 'signin',
+    component: () => import('../components/SignIn.vue'),
+  },
 ];
 
 const router = new VueRouter({
