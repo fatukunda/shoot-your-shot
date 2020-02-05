@@ -40,7 +40,6 @@
       <button
         v-show="isLoggedIn"
         class="btn btn-outline-info ml-2 btn-sm"
-        type="submit"
         @click="logout()"
       >Sign Out</button>
     </div>

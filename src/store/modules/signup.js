@@ -31,7 +31,7 @@ const actions = {
           commit('setUser', data.user);
           commit('setLoggedIn', true);
           const user = {
-            username: data.user.displayName,
+            displayName: data.user.displayName,
             email: data.user.email,
           };
           localStorage.setItem('isLoggedIn', true);
@@ -58,7 +58,7 @@ const actions = {
         commit('setUser', data.user);
         commit('setLoggedIn', true);
         const user = {
-          username: data.user.displayName,
+          displayName: data.user.displayName,
           email: data.user.email,
         };
         localStorage.setItem('isLoggedIn', true);

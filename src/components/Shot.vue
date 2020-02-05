@@ -43,6 +43,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'Shot',
   data: () => ({
@@ -55,6 +57,7 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(['isLoggedIn']),
     shotStyles() {
       const { height, border } = this;
       return {
