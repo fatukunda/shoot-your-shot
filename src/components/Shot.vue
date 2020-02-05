@@ -12,7 +12,9 @@
         <div class="col-md-12 mt-4">
           <div class="row">
             <div class="col-md-4">
-              <button class="btn btn-success btn-sm">
+              <button
+              class="btn btn-success btn-sm"
+              :class="!isLoggedIn ? 'disabled not-allowed': ''">
                 <span class="mr-2">20</span>
                 <span>
                   <font-awesome-icon :icon="['fa', 'thumbs-up']" />
@@ -20,7 +22,9 @@
               </button>
             </div>
             <div class="col-md-4">
-              <button class="btn btn-warning btn-sm">
+              <button
+                class="btn btn-warning btn-sm"
+                :class="!isLoggedIn ? 'disabled not-allowed': ''">
                 <span class="mr-2">30</span>
                 <span>
                   <font-awesome-icon :icon="['fa', 'adjust']" />
@@ -28,7 +32,9 @@
               </button>
             </div>
             <div class="col-md-4">
-              <button class="btn btn-danger btn-sm">
+              <button
+                class="btn btn-danger btn-sm"
+                :class="!isLoggedIn ? 'disabled not-allowed': ''">
                 <span class="mr-2">10</span>
                 <span>
                   <font-awesome-icon :icon="['fa', 'thumbs-down']" />
@@ -84,5 +90,9 @@ export default {
 .shot {
   font-size: 18px;
   line-height: 2rem;
+}
+.not-allowed {
+     cursor: not-allowed !important;
+     pointer-events: all !important;
 }
 </style>
