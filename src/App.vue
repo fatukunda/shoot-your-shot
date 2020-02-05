@@ -34,7 +34,7 @@ export default {
   methods: {
     ...mapMutations(['setUser']),
   },
-  mounted() {
+  created() {
     if (localStorage.getItem('isLoggedIn')) {
       const user = JSON.parse(localStorage.getItem('user'));
       this.$store.commit('setUser', user);

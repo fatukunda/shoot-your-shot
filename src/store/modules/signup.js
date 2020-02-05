@@ -1,7 +1,8 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable no-shadow */
-import firebase from 'firebase';
 import router from '../../router';
+
+const firebase = require('../../config/firebase');
 
 const state = {
   user: null,
@@ -21,16 +22,20 @@ const actions = {
   signup({ commit }, userInfo) {
     const { email, username, password } = userInfo;
     commit('setLoading', true);
-    firebase
-      .auth()
+    firebase.auth
       .createUserWithEmailAndPassword(email, password)
       .then((data) => {
         data.user.updateProfile({ displayName: username }).then(() => {
+          firebase.usersCollection.doc(data.user.uid).set({
+            email,
+            username,
+          });
           commit('setLoading', false);
           commit('setError', null);
           commit('setUser', data.user);
           commit('setLoggedIn', true);
           const user = {
+            id: data.user.uid,
             displayName: data.user.displayName,
             email: data.user.email,
           };
@@ -49,8 +54,7 @@ const actions = {
   signin({ commit }, userInfo) {
     const { email, password } = userInfo;
     commit('setLoading', true);
-    firebase
-      .auth()
+    firebase.auth
       .signInWithEmailAndPassword(email, password)
       .then((data) => {
         commit('setLoading', false);
@@ -73,11 +77,15 @@ const actions = {
       });
   },
   logout({ commit }) {
-    commit('setUser', null);
-    commit('setLoggedIn', false);
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('user');
-    router.push('/');
+    firebase.auth.signOut().then(() => {
+      commit('setUser', null);
+      commit('setLoggedIn', false);
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('user');
+      router.push('/');
+    }).catch((err) => {
+      console.log(err);
+    });
   },
 };
 const mutations = {

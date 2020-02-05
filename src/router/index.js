@@ -43,6 +43,10 @@ const routes = [
     name: 'signin',
     component: () => import('../components/SignIn.vue'),
   },
+  {
+    path: '*',
+    redirect: '/',
+  },
 ];
 
 const router = new VueRouter({
