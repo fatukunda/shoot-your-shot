@@ -3,6 +3,7 @@
     <Navbar />
     <div class="row main">
       <div class="col-md-3">
+        <notifications group="alerts"/>
         <TopShooters />
       </div>
       <div class="col-md-6">

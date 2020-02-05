@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import Notifications from 'vue-notification';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faThumbsUp,
@@ -20,6 +21,8 @@ library.add([faThumbsUp, faThumbsDown, faAdjust, faArrowCircleRight, faArrowCirc
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.config.productionTip = false;
+
+Vue.use(Notifications);
 
 firebase.auth.onAuthStateChanged((user) => {
   if (user) {

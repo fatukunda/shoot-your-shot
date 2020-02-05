@@ -2,12 +2,11 @@
   <div class="col-md-12">
     <div :style="shotStyles" class="shot shadow-lg p-4 mb-5 rounded">
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna.
+       {{text}}
       </p>
       <div class="row">
         <div class="col-md-12">
-          <h5>@LionKing</h5>
+          <h5>{{ `@${author}`}}</h5>
         </div>
         <div class="col-md-12 mt-4">
           <div class="row">
@@ -15,7 +14,7 @@
               <button
               class="btn btn-success btn-sm"
               :class="!isLoggedIn ? 'disabled not-allowed': ''">
-                <span class="mr-2">20</span>
+                <span class="mr-2">{{likes}}</span>
                 <span>
                   <font-awesome-icon :icon="['fa', 'thumbs-up']" />
                 </span>
@@ -25,7 +24,7 @@
               <button
                 class="btn btn-warning btn-sm"
                 :class="!isLoggedIn ? 'disabled not-allowed': ''">
-                <span class="mr-2">30</span>
+                <span class="mr-2">{{neutral}}</span>
                 <span>
                   <font-awesome-icon :icon="['fa', 'adjust']" />
                 </span>
@@ -35,7 +34,7 @@
               <button
                 class="btn btn-danger btn-sm"
                 :class="!isLoggedIn ? 'disabled not-allowed': ''">
-                <span class="mr-2">10</span>
+                <span class="mr-2">{{dislikes}}</span>
                 <span>
                   <font-awesome-icon :icon="['fa', 'thumbs-down']" />
                 </span>
@@ -53,6 +52,28 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'Shot',
+  props: {
+    text: {
+      type: String,
+      required: true,
+    },
+    author: {
+      type: String,
+      required: true,
+    },
+    likes: {
+      type: Number,
+      required: true,
+    },
+    dislikes: {
+      type: Number,
+      required: true,
+    },
+    neutral: {
+      type: Number,
+      required: true,
+    },
+  },
   data: () => ({
     height: '20rem',
     border: '1px solid #c9753d',

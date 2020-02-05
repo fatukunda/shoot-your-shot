@@ -62,6 +62,7 @@ const actions = {
         commit('setUser', data.user);
         commit('setLoggedIn', true);
         const user = {
+          id: data.user.uid,
           displayName: data.user.displayName,
           email: data.user.email,
         };
