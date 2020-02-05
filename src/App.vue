@@ -51,6 +51,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
 }
 .main {
-  margin-top: 3rem;
+  margin-top: 5rem;
 }
 </style>

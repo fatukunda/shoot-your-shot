@@ -16,6 +16,8 @@
           :neutral="shot.neutral"
           :author="shot.username"
           :createdOn="shot.createdOn"
+          :shotId="shot.id"
+          :userId="shot.userId"
         />
       </div>
     </div>

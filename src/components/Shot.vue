@@ -6,7 +6,7 @@
       </p>
       <div class="row">
         <div class="col-md-5">
-          <h5>{{ `@${author}`}}</h5>
+          <h5 class="font-italic">{{ `@${author}`}}</h5>
         </div>
         <div class="col-md-7">
           <h5>{{ createdOn | formatDate }}</h5>
@@ -16,6 +16,7 @@
             <div class="col-md-4">
               <button
               class="btn btn-success btn-sm"
+              @click="reactToShot('like')"
               :class="!isLoggedIn ? 'disabled not-allowed': ''">
                 <span class="mr-2">{{likes}}</span>
                 <span>
@@ -26,6 +27,7 @@
             <div class="col-md-4">
               <button
                 class="btn btn-warning btn-sm"
+                @click="reactToShot('neutral')"
                 :class="!isLoggedIn ? 'disabled not-allowed': ''">
                 <span class="mr-2">{{neutral}}</span>
                 <span>
@@ -36,6 +38,7 @@
             <div class="col-md-4">
               <button
                 class="btn btn-danger btn-sm"
+                @click="reactToShot('dislike')"
                 :class="!isLoggedIn ? 'disabled not-allowed': ''">
                 <span class="mr-2">{{dislikes}}</span>
                 <span>
@@ -52,11 +55,15 @@
 
 <script>
 import moment from 'moment';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Shot',
   props: {
+    shotId: {
+      type: String,
+      required: true,
+    },
     text: {
       type: String,
       required: true,
@@ -78,7 +85,11 @@ export default {
       required: true,
     },
     createdOn: {
-      type: Date,
+      type: Object,
+      required: true,
+    },
+    userId: {
+      type: String,
       required: true,
     },
   },
@@ -87,12 +98,41 @@ export default {
     border: '1px solid #c9753d',
   }),
   methods: {
+    ...mapActions(['reactionToShot']),
+    reactToShot(reaction) {
+      const shotInfo = {
+        shotId: this.shotId,
+        likes: this.likes,
+        dislikes: this.dislikes,
+        neutral: this.neutral,
+        receivedReaction: reaction,
+      };
+      if (!this.isLoggedIn) {
+        this.$notify({
+          group: 'alerts',
+          title: 'Action required',
+          text: 'Please Login to react to Shots!',
+          type: 'alert alert-warning',
+        });
+      }
+      if (this.user.uid === this.userId) {
+        this.$notify({
+          group: 'alerts',
+          title: 'Invalid Reaction',
+          text: 'You cannot toot your own horn!',
+          type: 'alert alert-danger',
+        });
+      }
+      if (this.isLoggedIn && this.user.uid !== this.userId) {
+        this.reactionToShot(shotInfo);
+      }
+    },
     generateRandomNumber(min = 0, max = 1) {
       return min + Math.round(Math.random() * max);
     },
   },
   computed: {
-    ...mapGetters(['isLoggedIn']),
+    ...mapGetters(['isLoggedIn', 'user']),
     shotStyles() {
       const { height, border } = this;
       return {

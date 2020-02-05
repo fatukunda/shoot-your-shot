@@ -27,7 +27,7 @@
       <div v-if="isError" class="alert alert-danger mt-2">{{isError.message}}</div>
       <button type="submit" class="btn btn-info btn-block mt-4">
         <span
-          class="spinner-border spinner-border-sm"
+          class="spinner-border spinner-border-sm mr-2"
           role="status"
           aria-hidden="true"
           v-if="isLoading"

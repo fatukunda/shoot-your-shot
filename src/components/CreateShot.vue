@@ -10,6 +10,7 @@
           rows="10"
           placeholder="You take my breath away everytime you smile."
           v-model="text"
+          required
         ></textarea>
       </div>
       <div v-if="isError" class="alert alert-danger mt-2">{{isError}}</div>

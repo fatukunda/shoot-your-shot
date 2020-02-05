@@ -42,6 +42,7 @@ const actions = {
         group: 'alerts',
         title: 'Success',
         text: 'Your Shot has been shot!',
+        type: 'alert alert-success',
       });
       console.log(ref);
     }).catch((err) => {
@@ -62,6 +63,42 @@ const actions = {
       commit('setLoading', false);
       commit('setAllShots', shots);
     });
+  },
+  reactionToShot({ commit }, shotInfo) {
+    const {
+      shotId, likes, dislikes, neutral, receivedReaction,
+    } = shotInfo;
+    commit('setLoading', true);
+    if (receivedReaction === 'like') {
+      firebase.shotsCollection.doc(shotId).update({
+        likes: likes + 1,
+      }).then(() => {
+
+      }).catch((err) => {
+        commit('setLoading', true);
+        commit('isError', err);
+      });
+    }
+    if (receivedReaction === 'neutral') {
+      firebase.shotsCollection.doc(shotId).update({
+        neutral: neutral + 1,
+      }).then(() => {
+
+      }).catch((err) => {
+        commit('setLoading', true);
+        commit('isError', err);
+      });
+    }
+    if (receivedReaction === 'dislike') {
+      firebase.shotsCollection.doc(shotId).update({
+        dislikes: dislikes + 1,
+      }).then(() => {
+
+      }).catch((err) => {
+        commit('setLoading', true);
+        commit('isError', err);
+      });
+    }
   },
 };
 
