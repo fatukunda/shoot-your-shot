@@ -15,6 +15,7 @@
           :dislikes="shot.dislikes"
           :neutral="shot.neutral"
           :author="shot.username"
+          :createdOn="shot.createdOn"
         />
       </div>
     </div>
@@ -44,7 +45,6 @@ export default {
   },
   created() {
     this.fetchAllShots();
-    console.log(this.shots);
   },
 };
 </script>
