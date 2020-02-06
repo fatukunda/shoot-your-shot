@@ -88,7 +88,7 @@ export default {
       type: Object,
       required: true,
     },
-    userId: {
+    authorId: {
       type: String,
       required: true,
     },
@@ -106,6 +106,8 @@ export default {
         dislikes: this.dislikes,
         neutral: this.neutral,
         receivedReaction: reaction,
+        authorId: this.authorId,
+        userId: this.user.uid,
       };
       if (!this.isLoggedIn) {
         this.$notify({
@@ -115,7 +117,7 @@ export default {
           type: 'alert alert-warning',
         });
       }
-      if (this.user.uid === this.userId) {
+      if (this.user.uid === this.authorId) {
         this.$notify({
           group: 'alerts',
           title: 'Invalid Reaction',
@@ -123,7 +125,7 @@ export default {
           type: 'alert alert-danger',
         });
       }
-      if (this.isLoggedIn && this.user.uid !== this.userId) {
+      if (this.isLoggedIn && this.user.uid !== this.authorId) {
         this.reactionToShot(shotInfo);
       }
     },

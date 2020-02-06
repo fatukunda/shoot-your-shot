@@ -26,6 +26,7 @@ const { currentUser } = auth;
 
 const usersCollection = db.collection('users');
 const shotsCollection = db.collection('shots');
+const reactionsCollection = db.collection('reactions');
 
 export {
   db,
@@ -33,4 +34,5 @@ export {
   usersCollection,
   shotsCollection,
   currentUser,
+  reactionsCollection,
 };

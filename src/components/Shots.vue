@@ -17,7 +17,7 @@
           :author="shot.username"
           :createdOn="shot.createdOn"
           :shotId="shot.id"
-          :userId="shot.userId"
+          :authorId="shot.authorId"
         />
       </div>
     </div>

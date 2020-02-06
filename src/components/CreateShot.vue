@@ -44,7 +44,7 @@ export default {
       const { displayName, uid } = this.user;
       const shotDetails = {
         text,
-        userId: uid,
+        authorId: uid,
         username: displayName,
         createdOn: new Date(),
         likes: 0,

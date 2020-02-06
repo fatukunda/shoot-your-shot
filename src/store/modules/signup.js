@@ -30,15 +30,15 @@ const actions = {
             email,
             username,
           });
-          commit('setLoading', false);
-          commit('setError', null);
-          commit('setUser', data.user);
-          commit('setLoggedIn', true);
           const user = {
             id: data.user.uid,
             displayName: data.user.displayName,
             email: data.user.email,
           };
+          commit('setLoading', false);
+          commit('setError', null);
+          commit('setUser', data.user);
+          commit('setLoggedIn', true);
           localStorage.setItem('isLoggedIn', true);
           localStorage.setItem('user', JSON.stringify(user));
           router.push('/');

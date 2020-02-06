@@ -34,10 +34,10 @@ export default {
   computed: mapGetters(['topShots']),
   filters: {
     trimShotLength(val) {
-      if (val.length < 120) {
+      if (val.length < 160) {
         return val;
       }
-      return `${val.substring(0, 120)} ...`;
+      return `${val.substring(0, 160)} ...`;
     },
   },
 };
