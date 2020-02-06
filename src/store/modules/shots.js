@@ -7,16 +7,19 @@ const firebase = require('../../config/firebase');
 const state = {
   shot: null,
   shots: null,
+  topShots: null,
 };
 
 const getters = {
   shot: state => state.shot,
   shots: state => state.shots,
+  topShots: state => state.topShots,
 };
 
 const mutations = {
   setCreateShot: (state, shot) => (state.shot = shot),
   setAllShots: (state, shots) => (state.shots = shots),
+  setTopShots: (state, topShots) => (state.topShots = topShots),
 };
 
 const actions = {
@@ -44,7 +47,6 @@ const actions = {
         text: 'Your Shot has been shot!',
         type: 'alert alert-success',
       });
-      console.log(ref);
     }).catch((err) => {
       commit('setError', err);
       commit('setShotCreated', false);
@@ -62,6 +64,11 @@ const actions = {
       });
       commit('setLoading', false);
       commit('setAllShots', shots);
+      if (shots.length > 0) {
+        const topShots = [...shots];
+        topShots.sort((a, b) => b.likes - a.likes);
+        commit('setTopShots', topShots.slice(0, 10));
+      }
     });
   },
   reactionToShot({ commit }, shotInfo) {
