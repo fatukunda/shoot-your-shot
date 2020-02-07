@@ -44,7 +44,7 @@
           aria-hidden="true"
           v-if="isLoading"
         ></span>
-        Sign In
+        Sign Up
       </button>
     </form>
   </div>

@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-useless-return */
 /* eslint-disable no-shadow */
 /* eslint-disable no-return-assign */
@@ -10,6 +11,9 @@ const state = {
   shots: null,
   topShots: null,
   topShooters: null,
+  nextShots: null,
+  lastVisible: null,
+  firstVisible: null,
 };
 
 const getters = {
@@ -17,6 +21,9 @@ const getters = {
   shots: state => state.shots,
   topShots: state => state.topShots,
   topShooters: state => state.topShooters,
+  nextShots: state => state.nextShots,
+  lastVisible: state => state.lastVisible,
+  firstVisible: state => state.firstVisible,
 };
 
 const mutations = {
@@ -24,6 +31,9 @@ const mutations = {
   setAllShots: (state, shots) => (state.shots = shots),
   setTopShots: (state, topShots) => (state.topShots = topShots),
   setTopShooters: (state, topShooters) => (state.topShooters = topShooters),
+  setNextShots: (state, nextShots) => (state.nextShots = nextShots),
+  setLastVisible: (state, lastVisible) => (state.lastVisible = lastVisible),
+  setFirstVisible: (state, firstVisible) => (state.firstVisible = firstVisible),
 };
 
 const actions = {
@@ -62,7 +72,9 @@ const actions = {
   },
   fetchAllShots({ commit }) {
     commit('setLoading', true);
-    firebase.shotsCollection.orderBy('createdOn', 'desc').onSnapshot((querySnapShot) => {
+    firebase.shotsCollection.orderBy('createdOn', 'desc').limit(4).onSnapshot((querySnapShot) => {
+      const lastVisible = querySnapShot.docs[querySnapShot.docs.length - 1];
+      const firstVisible = querySnapShot.docs[0];
       const shots = [];
       querySnapShot.forEach((doc) => {
         const shot = doc.data();
@@ -71,12 +83,70 @@ const actions = {
       });
       commit('setLoading', false);
       commit('setAllShots', shots);
-      if (shots.length > 0) {
-        const topShots = [...shots];
-        topShots.sort((a, b) => b.likes - a.likes);
-        commit('setTopShots', topShots.slice(0, 10));
-      }
+      commit('setLastVisible', lastVisible);
+      commit('setFirstVisible', firstVisible);
     });
+  },
+  fetchTopShots({ commit }) {
+    firebase.shotsCollection.orderBy('likes', 'desc').limit(10).onSnapshot((querySnapShot) => {
+      const topShots = [];
+      querySnapShot.forEach((doc) => {
+        const shot = doc.data();
+        shot.id = doc.id;
+        topShots.push(shot);
+      });
+      commit('setTopShots', topShots);
+    });
+  },
+  //   fetchTopShooters({ commit }) {
+  //     firebase.shotsCollection.orderBy('likes', 'desc').onSnapshot((querySnapShot) => {
+  //       const shots = [];
+  //       querySnapShot.forEach((doc) => {
+  //         const shot = doc.data();
+  //         shot.id = doc.id;
+  //         shots.push(shot);
+  //       });
+  //       commit('setTopShooters', topShooters);
+  //     });
+  //   },
+  fetchNextShots({ commit }, lastVisible) {
+    const nextShots = [];
+    firebase.shotsCollection
+      .orderBy('createdOn', 'desc')
+      .limit(4)
+      .startAfter(lastVisible.data().createdOn)
+      .onSnapshot((querySnapShot) => {
+        const lastVisible = querySnapShot.docs[querySnapShot.docs.length - 1];
+        const firstVisible = querySnapShot.docs[0];
+        querySnapShot.forEach((doc) => {
+          const shot = doc.data();
+          shot.id = doc.id;
+          nextShots.push(shot);
+        });
+        commit('setAllShots', nextShots);
+        commit('setLastVisible', lastVisible);
+        commit('setFirstVisible', firstVisible);
+      });
+  },
+  fetchPreviousShots({ commit }, startEndOptions) {
+    const { firstVisible } = startEndOptions;
+    const prevShots = [];
+    firebase.shotsCollection
+      .orderBy('createdOn', 'desc')
+      .limit(4)
+      .endBefore(firstVisible.data().createdOn)
+      .onSnapshot((querySnapShot) => {
+        const lastVisible = querySnapShot.docs[querySnapShot.docs.length - 1];
+        const firstVisible = querySnapShot.docs[0];
+        querySnapShot.forEach((doc) => {
+          const shot = doc.data();
+          shot.id = doc.id;
+          prevShots.push(shot);
+        });
+        commit('setAllShots', prevShots);
+        commit('setLastVisible', lastVisible);
+        commit('setFirstVisible', firstVisible);
+      });
   },
   reactionToShot({ commit }, shotInfo) {
     const {
@@ -85,7 +155,6 @@ const actions = {
     const likeDocId = `${userId}_${shotId}_lk`;
     const dislikeDocId = `${userId}_${shotId}_dsl`;
     const neutralDocId = `${userId}_${shotId}_ntl`;
-    console.log(likeDocId);
     if (receivedReaction === 'like') {
       firebase.reactionsCollection
         .doc(likeDocId)
@@ -122,15 +191,19 @@ const actions = {
               return;
             }
           });
-          firebase.reactionsCollection.doc(likeDocId).set({
-            shotId,
-            userId,
-          }).then(() => {
-            firebase.shotsCollection.doc(shotId).update({
-              likes: likes + 1,
+          firebase.reactionsCollection
+            .doc(likeDocId)
+            .set({
+              shotId,
+              userId,
+            })
+            .then(() => {
+              firebase.shotsCollection.doc(shotId).update({
+                likes: likes + 1,
+              });
             });
-          });
-        }).catch((err) => {
+        })
+        .catch((err) => {
           commit('setLoading', true);
           commit('isError', err);
         });
@@ -171,15 +244,19 @@ const actions = {
               return;
             }
           });
-          firebase.reactionsCollection.doc(neutralDocId).set({
-            shotId,
-            userId,
-          }).then(() => {
-            firebase.shotsCollection.doc(shotId).update({
-              neutral: neutral + 1,
+          firebase.reactionsCollection
+            .doc(neutralDocId)
+            .set({
+              shotId,
+              userId,
+            })
+            .then(() => {
+              firebase.shotsCollection.doc(shotId).update({
+                neutral: neutral + 1,
+              });
             });
-          });
-        }).catch((err) => {
+        })
+        .catch((err) => {
           commit('setLoading', true);
           commit('isError', err);
         });
@@ -220,15 +297,19 @@ const actions = {
               return;
             }
           });
-          firebase.reactionsCollection.doc(dislikeDocId).set({
-            shotId,
-            userId,
-          }).then(() => {
-            firebase.shotsCollection.doc(shotId).update({
-              dislikes: dislikes + 1,
+          firebase.reactionsCollection
+            .doc(dislikeDocId)
+            .set({
+              shotId,
+              userId,
+            })
+            .then(() => {
+              firebase.shotsCollection.doc(shotId).update({
+                dislikes: dislikes + 1,
+              });
             });
-          });
-        }).catch((err) => {
+        })
+        .catch((err) => {
           commit('setLoading', true);
           commit('isError', err);
         });

@@ -3,7 +3,7 @@
     <h4 class="display-5 pl-2">Shots</h4>
     <hr />
     <div v-show="isLoading" class="spin row justify-content-center align-items-center">
-      <div class="spinner-grow text-warning spin-item"  role="status">
+      <div class="spinner-grow text-warning spin-item" role="status">
         <span class="sr-only">Loading...</span>
       </div>
     </div>
@@ -22,10 +22,10 @@
       </div>
     </div>
     <div class="row mt-2 navigate">
-      <div class="col-md-6 text-center">
+      <div class="col-md-6 text-center" @click="fetchPrev()" :class="isDisabled ? 'disabled': ''">
         <font-awesome-icon :icon="['fas', 'arrow-circle-left']" size="3x" class="icon" />
       </div>
-      <div class="col-md-6 text-center">
+      <div class="col-md-6 text-center" @click="fetchNext()">
         <font-awesome-icon :icon="['fas', 'arrow-circle-right']" size="3x" class="icon" />
       </div>
     </div>
@@ -38,15 +38,33 @@ import Shot from './Shot.vue';
 
 export default {
   name: 'Shots',
+  data() {
+    return {
+      isDisabled: false,
+    };
+  },
   components: {
     Shot,
   },
-  computed: mapGetters(['shots', 'isLoading']),
+  computed: mapGetters(['shots', 'isLoading', 'nextShots', 'lastVisible', 'firstVisible']),
   methods: {
-    ...mapActions(['fetchAllShots']),
+    ...mapActions(['fetchAllShots', 'fetchNextShots', 'fetchPreviousShots', 'fetchTopShots']),
+    fetchNext() {
+      this.fetchNextShots(this.lastVisible);
+      this.isDisabled = false;
+    },
+    fetchPrev() {
+      const startEndOptions = {
+        firstVisible: this.firstVisible,
+        lastVisible: this.lastVisible,
+      };
+      this.fetchPreviousShots(startEndOptions);
+    },
   },
   created() {
     this.fetchAllShots();
+    this.fetchTopShots();
+    this.isDisabled = true;
   },
 };
 </script>
@@ -58,11 +76,15 @@ export default {
 .navigate {
   margin-bottom: 4rem;
 }
-.spin{
+.spin {
   height: 80vh;
 }
-.spin-item{
+.spin-item {
   width: 5rem;
   height: 5rem;
+}
+.disabled {
+  pointer-events: none;
+  opacity: 0.4;
 }
 </style>
