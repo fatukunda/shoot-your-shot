@@ -36,7 +36,7 @@ export default {
       text: '',
     };
   },
-  computed: mapGetters(['user', 'isError', 'isLoading']),
+  computed: mapGetters(['user', 'isError', 'isLoading', 'isLoggedIn']),
   methods: {
     ...mapActions(['createShot']),
     takeShot() {
@@ -54,6 +54,11 @@ export default {
       this.createShot(shotDetails);
       this.text = '';
     },
+  },
+  created() {
+    if (!this.isLoggedIn) {
+      this.$router.push('/');
+    }
   },
 };
 </script>

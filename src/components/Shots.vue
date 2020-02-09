@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mb-4">
     <h4 class="display-5 pl-2" v-show="!isLoading">Shots</h4>
     <hr v-show="!isLoading" />
     <div v-show="isLoading" class="spin row justify-content-center align-items-center">
@@ -21,14 +21,14 @@
         />
       </div>
     </div>
-    <div class="row mt-2 navigate" v-show="!isLoading">
+    <!-- <div class="row mt-2 navigate" v-show="!isLoading">
       <div class="col-md-6 text-center" @click="fetchPrev()" :class="isDisabled ? 'disabled': ''">
         <font-awesome-icon :icon="['fas', 'arrow-circle-left']" size="3x" class="icon" />
       </div>
       <div class="col-md-6 text-center" @click="fetchNext()">
         <font-awesome-icon :icon="['fas', 'arrow-circle-right']" size="3x" class="icon" />
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 

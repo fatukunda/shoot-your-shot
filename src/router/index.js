@@ -43,6 +43,11 @@ const routes = [
     name: 'signin',
     component: () => import('../components/SignIn.vue'),
   },
+  // {
+  //   path: '/shots/:id',
+  //   name: 'singleShot',
+  //   component: () => import('../components/SingleShot.vue'),
+  // },
   {
     path: '*',
     redirect: '/',

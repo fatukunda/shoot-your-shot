@@ -1,5 +1,7 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import 'firebase/firestore';
+import 'firebase/analytics';
+import 'firebase/auth';
 
 // firebase configurations
 
@@ -27,6 +29,7 @@ const { currentUser } = auth;
 const usersCollection = db.collection('users');
 const shotsCollection = db.collection('shots');
 const reactionsCollection = db.collection('reactions');
+const usernamesCollection = db.collection('usernames');
 
 export {
   db,
@@ -35,4 +38,5 @@ export {
   shotsCollection,
   currentUser,
   reactionsCollection,
+  usernamesCollection,
 };

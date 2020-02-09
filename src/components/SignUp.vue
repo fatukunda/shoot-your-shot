@@ -62,7 +62,7 @@ export default {
       password: '',
     };
   },
-  computed: mapGetters(['user', 'isLoading', 'isLoggedIn', 'isError']),
+  computed: mapGetters(['isLoading', 'isError']),
   methods: {
     ...mapActions(['signup']),
     register() {
@@ -74,6 +74,11 @@ export default {
       };
       this.signup(userInfo);
     },
+  },
+  created() {
+    if (this.isLoggedIn) {
+      this.$router.push('/');
+    }
   },
 };
 </script>

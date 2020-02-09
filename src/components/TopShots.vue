@@ -1,5 +1,5 @@
 <template>
-  <div class="top-shots">
+  <div class="top-shots mb-4">
     <div class="row">
       <div class="col-md-12">
         <h5 class="pb-4 pl-4 text-warning font-weight-bold" v-show="!isLoading">Top Shots</h5>

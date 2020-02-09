@@ -4,13 +4,13 @@
     <hr />
     <p>
       Shoot your shot is a competitive game where players try and write cool
-      and appealing statements that they would normally use to seduce someone.
+      and interesting statements that they would normally use to flirt with someone.
       Below are some of the keywords that will help you to understand the game.
     </p>
     <ul>
       <li>
         <span class="font-weight-bold">A shot -</span>
-        <span>A statement written by a player that is meant to be seductive.</span>
+        <span>A statement written by a player that is meant to be flirty.</span>
       </li>
       <li>
         <span class="font-weight-bold">A shooter -</span>
@@ -23,14 +23,19 @@
     </ul>
     <h4 class="display-5">How to play</h4>
     <hr>
-    <p>Click on the <strong> shoot a shot</strong> button in the top right corner.
-    This will take you to a page where you can type out your shot and send it to the world to see.
-    Other players will either <strong>like, dislike</strong> or simply rate your shot as average.
-    Feel free to also swipe through the different shots as you rate them.
-    </p>
-    <h5>Will you be the ultimate shoot master?</h5>
-    <router-link to="/shots/create">
+    <p>Create an accout and after, you'll be able to create a shot and
+      also react to other users' shots.</p>
+    <h5>Will you be the ultimate shot master?</h5>
+    <router-link to="/shots/create" v-show="isLoggedIn">
       <button class="btn btn-warning mt-4">Shoot your shot Now!</button>
     </router-link>
   </div>
 </template>
+<script>
+import { mapGetters } from 'vuex';
+
+export default {
+  name: 'About',
+  computed: mapGetters(['isLoggedIn']),
+};
+</script>

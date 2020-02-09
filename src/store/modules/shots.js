@@ -25,6 +25,7 @@ const getters = {
   nextShots: state => state.nextShots,
   lastVisible: state => state.lastVisible,
   firstVisible: state => state.firstVisible,
+  singleShot: state => state.singleShot,
 };
 
 const mutations = {
@@ -73,7 +74,7 @@ const actions = {
   },
   fetchAllShots({ commit }) {
     commit('setLoading', true);
-    firebase.shotsCollection.orderBy('createdOn', 'desc').limit(4).onSnapshot((querySnapShot) => {
+    firebase.shotsCollection.orderBy('createdOn', 'desc').onSnapshot((querySnapShot) => {
       const lastVisible = querySnapShot.docs[querySnapShot.docs.length - 1];
       const firstVisible = querySnapShot.docs[0];
       const shots = [];
@@ -100,6 +101,7 @@ const actions = {
     });
   },
   fetchTopShooters({ commit }) {
+    commit('setLoading', true);
     firebase.shotsCollection.orderBy('likes', 'desc').onSnapshot((querySnapShot) => {
       const shots = [];
       querySnapShot.forEach((doc) => {
@@ -108,8 +110,27 @@ const actions = {
         shots.push(shot);
       });
       const totalLikes = getTotalLikes(shots);
-      totalLikes.sort((a, b) => a.likes - b.likes);
+      totalLikes.forEach((item) => {
+        // eslint-disable-next-line no-param-reassign
+        item.AvgLikes = item.totalLikes / item.numberOfShots;
+      });
+      totalLikes.sort((a, b) => b.AvgLikes - a.AvgLikes);
+      commit('setLoading', false);
       commit('setTopShooters', totalLikes);
+    });
+  },
+  fetchSingleShot({ commit }, id) {
+    commit('setLoading', true);
+    firebase.shotsCollection.doc(id).get().then((doc) => {
+      if (doc.exists) {
+        const shot = doc.data();
+        shot.id = doc.id;
+        commit('setSingleShot', shot);
+        commit('setLoading', false);
+      }
+    }).catch((err) => {
+      commit('setError', err);
+      commit('setLoading', false);
     });
   },
   fetchNextShots({ commit }, lastVisible) {

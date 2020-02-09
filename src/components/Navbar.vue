@@ -1,6 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">Shoot Your Shot</a>
+    <a class="navbar-brand" href="#">
+      <img src="../assets/logo.png" width="30" height="30" class="d-inline-block align-top" alt=""/>
+      Shoot Your Shot
+    </a>
     <button
       class="navbar-toggler"
       type="button"
@@ -66,5 +69,8 @@ export default {
 
 .nav-bar a.router-link-exact-active {
   color: #c9753d;
+}
+img{
+  border-radius: 50%;
 }
 </style>

@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-return */
 /* eslint-disable no-return-assign */
 /* eslint-disable no-shadow */
 import router from '../../router';
@@ -22,34 +23,44 @@ const actions = {
   signup({ commit }, userInfo) {
     const { email, username, password } = userInfo;
     commit('setLoading', true);
-    firebase.auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((data) => {
-        data.user.updateProfile({ displayName: username }).then(() => {
-          firebase.usersCollection.doc(data.user.uid).set({
-            email,
-            username,
-          });
-          commit('setLoading', false);
-          commit('setError', null);
-          commit('setUser', data.user);
-          commit('setLoggedIn', true);
-          const user = {
-            id: data.user.uid,
-            displayName: data.user.displayName,
-            email: data.user.email,
-          };
-          localStorage.setItem('isLoggedIn', true);
-          localStorage.setItem('user', JSON.stringify(user));
-          router.push('/');
-        });
-      })
-      .catch((err) => {
+    firebase.usernamesCollection.doc(username.toLowerCase()).get().then((doc) => {
+      if (doc.exists) {
         commit('setLoading', false);
-        commit('setError', err);
-        localStorage.removeItem('isLoggedIn');
-        localStorage.removeItem('user');
-      });
+        commit('setError', 'Username already taken.');
+        return;
+      }
+      firebase.auth
+        .createUserWithEmailAndPassword(email, password)
+        .then((data) => {
+          data.user.updateProfile({ displayName: username }).then(() => {
+            firebase.usersCollection.doc(data.user.uid).set({
+              email,
+              username,
+            });
+            firebase.usernamesCollection.doc(username.toLowerCase()).set({
+              username,
+            });
+            commit('setLoading', false);
+            commit('setError', null);
+            commit('setLoggedIn', true);
+            const user = {
+              id: data.user.uid,
+              displayName: data.user.displayName,
+              email: data.user.email,
+            };
+            commit('setUser', user);
+            localStorage.setItem('isLoggedIn', true);
+            localStorage.setItem('user', JSON.stringify(user));
+            router.push('/');
+          });
+        })
+        .catch((err) => {
+          commit('setLoading', false);
+          commit('setError', err);
+          localStorage.removeItem('isLoggedIn');
+          localStorage.removeItem('user');
+        });
+    });
   },
   signin({ commit }, userInfo) {
     const { email, password } = userInfo;
