@@ -3,6 +3,7 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-return-assign */
 import Vue from 'vue';
+import { getTotalLikes } from '../../utils/util';
 
 const firebase = require('../../config/firebase');
 
@@ -98,17 +99,19 @@ const actions = {
       commit('setTopShots', topShots);
     });
   },
-  //   fetchTopShooters({ commit }) {
-  //     firebase.shotsCollection.orderBy('likes', 'desc').onSnapshot((querySnapShot) => {
-  //       const shots = [];
-  //       querySnapShot.forEach((doc) => {
-  //         const shot = doc.data();
-  //         shot.id = doc.id;
-  //         shots.push(shot);
-  //       });
-  //       commit('setTopShooters', topShooters);
-  //     });
-  //   },
+  fetchTopShooters({ commit }) {
+    firebase.shotsCollection.orderBy('likes', 'desc').onSnapshot((querySnapShot) => {
+      const shots = [];
+      querySnapShot.forEach((doc) => {
+        const shot = doc.data();
+        shot.id = doc.id;
+        shots.push(shot);
+      });
+      const totalLikes = getTotalLikes(shots);
+      totalLikes.sort((a, b) => a.likes - b.likes);
+      commit('setTopShooters', totalLikes);
+    });
+  },
   fetchNextShots({ commit }, lastVisible) {
     const nextShots = [];
     firebase.shotsCollection

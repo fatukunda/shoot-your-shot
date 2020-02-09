@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h4 class="display-5 pl-2">Shots</h4>
-    <hr />
+    <h4 class="display-5 pl-2" v-show="!isLoading">Shots</h4>
+    <hr v-show="!isLoading" />
     <div v-show="isLoading" class="spin row justify-content-center align-items-center">
       <div class="spinner-grow text-warning spin-item" role="status">
         <span class="sr-only">Loading...</span>
@@ -21,7 +21,7 @@
         />
       </div>
     </div>
-    <div class="row mt-2 navigate">
+    <div class="row mt-2 navigate" v-show="!isLoading">
       <div class="col-md-6 text-center" @click="fetchPrev()" :class="isDisabled ? 'disabled': ''">
         <font-awesome-icon :icon="['fas', 'arrow-circle-left']" size="3x" class="icon" />
       </div>
@@ -48,7 +48,7 @@ export default {
   },
   computed: mapGetters(['shots', 'isLoading', 'nextShots', 'lastVisible', 'firstVisible']),
   methods: {
-    ...mapActions(['fetchAllShots', 'fetchNextShots', 'fetchPreviousShots', 'fetchTopShots']),
+    ...mapActions(['fetchAllShots', 'fetchNextShots', 'fetchPreviousShots']),
     fetchNext() {
       this.fetchNextShots(this.lastVisible);
       this.isDisabled = false;
@@ -63,7 +63,6 @@ export default {
   },
   created() {
     this.fetchAllShots();
-    this.fetchTopShots();
     this.isDisabled = true;
   },
 };

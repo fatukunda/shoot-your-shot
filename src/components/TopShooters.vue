@@ -1,35 +1,29 @@
 <template>
   <div class="top-shooters">
-      <h5 class="pb-4 pl-4 text-warning font-weight-bold">Top 10 Shooters</h5>
+      <h5 class="pb-4 pl-4 text-warning font-weight-bold" v-show="!isLoading">Top 10 Shooters</h5>
     <ol>
-      <li>@topdawg</li>
-      <hr/>
-      <li>@sleepingBeauty</li>
-      <hr/>
-      <li>@lionKing</li>
-      <hr/>
-      <li>@rollingStone</li>
-      <hr/>
-      <li>@hawte</li>
-      <hr/>
-      <li>@gotchYou</li>
-      <hr/>
-      <li>@simeon</li>
-      <hr/>
-      <li>@lukas</li>
-      <hr/>
-      <li>@gotchYou</li>
-      <hr/>
+      <li v-for="topShooter in topShooters" :key="topShooter.username">
+        {{`@${topShooter.username}`}}
+        <hr/>
+      </li>
     </ol>
-    <router-link to="/leaderboard">
+    <router-link to="/leaderboard" v-show="!isLoading">
         <button class="btn btn-outline-warning float-right">View Leaderboard</button>
     </router-link>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
   name: 'TopShooters',
+  computed: mapGetters(['topShooters', 'isLoading']),
+  methods: mapActions(['fetchTopShooters']),
+  created() {
+    this.fetchTopShooters();
+    console.log(this.topShooters);
+  },
 };
 </script>
 
