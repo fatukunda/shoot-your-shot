@@ -96,7 +96,7 @@ const actions = {
       localStorage.removeItem('user');
       router.push('/');
     }).catch((err) => {
-      console.log(err);
+      commit('setError', err);
     });
   },
 };

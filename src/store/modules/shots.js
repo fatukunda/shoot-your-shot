@@ -43,6 +43,10 @@ const actions = {
     const {
       text, createdOn, authorId, username, likes, dislikes, neutral,
     } = shotDetails;
+    if (text === '') {
+      commit('setError', 'Field for shot is required.');
+      return;
+    }
     commit('setLoading', true);
     commit('setError', null);
     firebase.shotsCollection
